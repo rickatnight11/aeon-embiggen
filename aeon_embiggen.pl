@@ -106,8 +106,13 @@ sub findThumbs
             }
 
         }
-
-        my $filename = $path . "\\" . $name;
+		
+		my $filename;
+		if ($^O eq "MSWin32") {
+			$filename = $path . "\\" . $name;
+		} else {
+			$filename = $path . "/" . $name;
+		}
 
         if (-d $filename) {
 
@@ -119,7 +124,7 @@ sub findThumbs
 
             my $temp = $filename;               # Preserve the original
 
-            $temp =~ s/(^\s+)|(\s+$)//g;                # Remove whitespace
+            $temp =~ s/(^\s+)|(\s+$)//g;        # Remove whitespace
 
             my $extension = $temp;              # The file extension
 
